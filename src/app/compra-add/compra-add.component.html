@@ -1,0 +1,79 @@
+<div class="main-content" >
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="header">
+                        <h4 class="title">Compra</h4>
+                    </div>
+                    <div class="content">
+                        <form (ngSubmit)="onSubmit()">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label>extdoc</label>
+                                        <input type="text" class="form-control" required
+                                               [(ngModel)]="compra.extdoc" name="extdoc">
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <label>Precio Unitario</label>
+                                        <input type="number" class="form-control" required
+                                               [(ngModel)]="compra.preciounitario" name="preciounitario">
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <label>Cantidad</label>
+                                        <input type="number" class="form-control" required
+                                               [(ngModel)]="compra.cantidad" name="cantidad">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label>Fecha</label>
+                                        <input type="date" class="form-control" required
+                                               [(ngModel)]="compra.fecha" name="fecha">
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label>Fecha de Vencimiento</label>
+                                        <input type="date" class="form-control" required
+                                               [(ngModel)]="compra.fechavenc" name="fechavenc">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                      <label>Producto</label>
+                                      <select class="form-control" required
+                                        [(ngModel)]="compra.producto_id" name="producto_id">
+                                          <option [ngValue]="i.id" *ngFor="let i of productos">{{i.nombre}}</option>
+                                      </select>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                      <label>Lote</label>
+                                      <select class="form-control" required
+                                        [(ngModel)]="compra.lote_id" name="lote_id">
+                                          <option [ngValue]="i.id" *ngFor="let i of lotes">{{i.nombre}}</option>
+                                      </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <button type="submit" class="btn btn-info btn-fill pull-right">Guardar</button>
+                            <div class="clearfix"></div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>

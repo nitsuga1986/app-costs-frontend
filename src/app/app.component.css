@@ -1,0 +1,12 @@
+:host /deep/ table.table-smart {
+  font-size: 1.5em;
+}
+
+:host /deep/ i.fa {
+  text-align: center;
+  padding: 0 0.65em;
+}
+:host /deep/ button i.fa {
+  text-align: center;
+  padding: inherit;
+}

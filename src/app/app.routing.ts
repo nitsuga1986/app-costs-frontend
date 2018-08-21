@@ -3,25 +3,29 @@ import { CommonModule, } from '@angular/common';
 import { BrowserModule  } from '@angular/platform-browser';
 import { Routes, RouterModule } from '@angular/router';
 
+import { ProductosComponent } from './productos/productos.component';
+import { LotesComponent } from './lotes/lotes.component';
+import { LoteAddComponent } from './lote-add/lote-add.component';
+import { ComprasComponent } from './compras/compras.component';
+import { CompraAddComponent } from './compra-add/compra-add.component';
+import { VentumComponent } from './ventum/ventum.component';
+import { VentaAddComponent } from './venta-add/venta-add.component';
+
 import { HomeComponent } from './home/home.component';
-import { UserComponent } from './user/user.component';
-import { TablesComponent } from './tables/tables.component';
-import { TypographyComponent } from './typography/typography.component';
-import { IconsComponent } from './icons/icons.component';
-import { MapsComponent } from './maps/maps.component';
-import { NotificationsComponent } from './notifications/notifications.component';
-import { UpgradeComponent } from './upgrade/upgrade.component';
 
 const routes: Routes =[
+    { path: 'producto',       component: ProductosComponent },
+    { path: 'lotes',          component: LotesComponent },
+    { path: 'lote/add',       component: LoteAddComponent },
+    { path: 'lote/add/:id',   component: LoteAddComponent },
+    { path: 'compras',        component: ComprasComponent },
+    { path: 'compra/add',     component: CompraAddComponent },
+    { path: 'compra/add/:id', component: CompraAddComponent },
+    { path: 'ventas',         component: VentumComponent },
+    { path: 'venta/add',      component: VentaAddComponent },
+    { path: 'venta/add/:id',  component: VentaAddComponent },
     { path: 'dashboard',      component: HomeComponent },
-    { path: 'user',           component: UserComponent },
-    { path: 'table',          component: TablesComponent },
-    { path: 'typography',     component: TypographyComponent },
-    { path: 'icons',          component: IconsComponent },
-    { path: 'maps',           component: MapsComponent },
-    { path: 'notifications',  component: NotificationsComponent },
-    { path: 'upgrade',        component: UpgradeComponent },
-      { path: '',          redirectTo: 'dashboard', pathMatch: 'full' }
+    { path: '',               redirectTo: 'dashboard', pathMatch: 'full' }
 ];
 
 @NgModule({
