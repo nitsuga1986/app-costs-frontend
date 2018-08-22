@@ -20,6 +20,7 @@ export class CompraAddComponent implements OnInit {
   public compra : Compra  = new Compra();
   public productos : Producto[]
   public lotes : Lote[]
+  public unitSelected = "U";
 
   constructor(public apiService: ApiService, public functions: FunctionsService, public acRoute : ActivatedRoute) { }
 
@@ -55,6 +56,12 @@ export class CompraAddComponent implements OnInit {
       }
     });
 
+  }
+
+  // CHANGE UNIT
+  public unitChange(producto_id): void {  // event will give you full breif of action
+    this.unitSelected =  this.productos.filter(x => x.id == producto_id)[0].unidad;
+    console.log(producto_id);
   }
 
   // SUBMIT: UPDATE OR CREATE

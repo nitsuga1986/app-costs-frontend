@@ -11,16 +11,27 @@
                             <div class="row">
                                 <div class="col-md-6">
                                     <div class="form-group">
-                                        <label>extdoc</label>
+                                        <label>Referencia</label>
                                         <input type="text" class="form-control" required
                                                [(ngModel)]="compra.extdoc" name="extdoc">
                                     </div>
                                 </div>
-                                <div class="col-md-3">
+                                <div class="col-md-6">
                                     <div class="form-group">
-                                        <label>Precio Unitario</label>
-                                        <input type="number" class="form-control" required
-                                               [(ngModel)]="compra.preciounitario" name="preciounitario">
+                                        <label>Fecha</label>
+                                        <input type="date" class="form-control" required
+                                               [(ngModel)]="compra.fecha" name="fecha">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                      <label>Producto</label>
+                                      <select class="form-control" required (ngModelChange)="unitChange($event)"
+                                        [(ngModel)]="compra.producto_id" name="producto_id">
+                                          <option [ngValue]="i.id" *ngFor="let i of productos">{{i.nombre}}</option>
+                                      </select>
                                     </div>
                                 </div>
                                 <div class="col-md-3">
@@ -30,33 +41,18 @@
                                                [(ngModel)]="compra.cantidad" name="cantidad">
                                     </div>
                                 </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-md-6">
+                                <div class="col-md-3">
                                     <div class="form-group">
-                                        <label>Fecha</label>
-                                        <input type="date" class="form-control" required
-                                               [(ngModel)]="compra.fecha" name="fecha">
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        <label>Fecha de Vencimiento</label>
-                                        <input type="date" class="form-control" required
-                                               [(ngModel)]="compra.fechavenc" name="fechavenc">
+                                        <label>Precio</label>
+                                        <div class="input-group">
+                                          <input type="text" class="form-control" required
+                                                 [(ngModel)]="compra.preciounitario" name="preciounitario">
+                                          <span class="input-group-addon">x {{unitSelected}}</span>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
                             <div class="row">
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                      <label>Producto</label>
-                                      <select class="form-control" required
-                                        [(ngModel)]="compra.producto_id" name="producto_id">
-                                          <option [ngValue]="i.id" *ngFor="let i of productos">{{i.nombre}}</option>
-                                      </select>
-                                    </div>
-                                </div>
                                 <div class="col-md-6">
                                     <div class="form-group">
                                       <label>Lote</label>

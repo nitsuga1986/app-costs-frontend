@@ -4,4 +4,5 @@ export class Lote {
     public fechaelav:string;
     public fechavenc:string;
     public productoterm:number;
+    public producto:any;
 }

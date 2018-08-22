@@ -7,6 +7,7 @@ import { Ng2SmartTableModule, LocalDataSource } from 'ng2-smart-table';
 import { ApiService } from '../api.service';
 import { FunctionsService } from '../functions.service';
 import { Lote } from '../models/lote';
+import { Producto } from '../models/producto';
 
 @Component({
   selector: 'app-lotes',
@@ -15,6 +16,8 @@ import { Lote } from '../models/lote';
 })
 
 export class LotesComponent implements OnInit {
+  public productos : Producto[];
+  public lotes : Lote[];
     settings = {
       delete: {
         deleteButtonContent:  '<i class="fa fa-trash fa-2x fa-fw text-muted" aria-hidden="true" title=""></i>',
@@ -47,7 +50,7 @@ export class LotesComponent implements OnInit {
         fechavenc: {    title: 'Fecha de vencimiento',
                         filter: false
         },
-        productoterm: { title: 'Cantidad',
+        producto: { title: 'Producto',
                         filter: false
         },
       },
@@ -57,14 +60,21 @@ export class LotesComponent implements OnInit {
 
   constructor(public apiService: ApiService, public functions: FunctionsService, public router : Router) {
     this.source = new LocalDataSource();
-
-    this.apiService.get("lotes").subscribe((data: Lote[])=>{
-      console.log(data);
-      this.source = new LocalDataSource(data);
-    });
-
   }
-  ngOnInit() {}
+  ngOnInit() {
+    this.apiService.get("lotes").subscribe((data: Lote[])=>{
+      this.lotes = data;
+      console.log(this.lotes);
+      this.apiService.get("productos").subscribe((data : Producto[])=>{
+        this.productos = data
+        console.log(this.productos);
+        this.lotes.forEach((item:any, index:any) => {
+            this.lotes[index].producto =  this.productos.filter(x => x.id == item.id)[0].nombre;
+        })
+        this.source = new LocalDataSource(this.lotes);
+      });
+    });
+  }
 
   onSearch(query: string = '') {
     if (query == '') { this.source.setFilter([], true); }
