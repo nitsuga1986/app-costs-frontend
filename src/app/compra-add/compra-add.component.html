@@ -37,7 +37,7 @@
                                 <div class="col-md-3">
                                     <div class="form-group">
                                         <label>Cantidad</label>
-                                        <input type="number" class="form-control" required
+                                        <input type="number" min="1" step="any" class="form-control" required
                                                [(ngModel)]="compra.cantidad" name="cantidad">
                                     </div>
                                 </div>
@@ -45,7 +45,7 @@
                                     <div class="form-group">
                                         <label>Precio</label>
                                         <div class="input-group">
-                                          <input type="text" class="form-control" required
+                                          <input type="number" min="1" step="any" class="form-control" required
                                                  [(ngModel)]="compra.preciounitario" name="preciounitario">
                                           <span class="input-group-addon">x {{unitSelected}}</span>
                                         </div>
@@ -55,9 +55,15 @@
                             <div class="row">
                                 <div class="col-md-6">
                                     <div class="form-group">
-                                      <label>Lote</label>
-                                      <select class="form-control" required
-                                        [(ngModel)]="compra.lote_id" name="lote_id">
+                                      <label>Total</label>
+                                      <input type="string" class="form-control" required disabled
+                                             value="{{ ((compra.cantidad|number) * (compra.preciounitario|number))|currency }}" >
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                      <label>Total</label>
+                                      <select class="form-control" required >
                                           <option [ngValue]="i.id" *ngFor="let i of lotes">{{i.nombre}}</option>
                                       </select>
                                     </div>

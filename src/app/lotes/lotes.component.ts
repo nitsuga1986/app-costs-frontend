@@ -38,10 +38,10 @@ export class LotesComponent implements OnInit {
         id: {           title: 'ID',
                         editable: false,
                         addable: false,
-                        filter: false
+                        filter: false,
+                        sortDirection:'desc'
         },
         nombre: {       title: 'Nombre',
-                        sortDirection:'asc',
                         filter: false
         },
         fechaelav: {    title: 'Fecha de elaboración',
@@ -69,7 +69,7 @@ export class LotesComponent implements OnInit {
         this.productos = data
         console.log(this.productos);
         this.lotes.forEach((item:any, index:any) => {
-            this.lotes[index].producto =  this.productos.filter(x => x.id == item.id)[0].nombre;
+            this.lotes[index].producto =  this.productos.filter(x => x.id == item.productoterm)[0].nombre;
         })
         this.source = new LocalDataSource(this.lotes);
       });

@@ -7,6 +7,8 @@ import { Ng2SmartTableModule, LocalDataSource } from 'ng2-smart-table';
 import { ApiService } from '../api.service';
 import { FunctionsService } from '../functions.service';
 import { Compra } from '../models/compra';
+import { Producto } from '../models/producto';
+import { Lote } from '../models/lote';
 
 @Component({
   selector: 'app-compras',
@@ -15,6 +17,9 @@ import { Compra } from '../models/compra';
 })
 
 export class ComprasComponent implements OnInit {
+  public compras : Compra[]
+  public productos : Producto[]
+  public lotes : Lote[]
   settings = {
     delete: {
       deleteButtonContent:  '<i class="fa fa-trash fa-2x fa-fw text-muted" aria-hidden="true" title=""></i>',
@@ -35,29 +40,38 @@ export class ComprasComponent implements OnInit {
       id: {           title: 'ID',
                       editable: false,
                       addable: false,
-                      filter: false
+                      filter: false,
+                      sortDirection:'desc'
       },
       extdoc: {       title: 'extdoc',
                       filter: false
       },
       fecha: {        title: 'Fecha de compra',
-                      sortDirection:'asc',
                       filter: false
       },
-      fechavenc: {    title: 'Fecha de vencimiento',
+      producto: {     title: 'Producto',
                       filter: false
       },
-      producto_id: {  title: 'Producto',
+      lote: {         title: 'Lote',
                       filter: false
       },
-      lote_id: {      title: 'Lote',
-                      filter: false
-      },
-      preciounitario:{title: 'Precio Unitario',
-                      filter: false
+      preciounitario:{title: 'Precio',
+                      filter: false,
+                      valuePrepareFunction: (value) => { return Intl.NumberFormat('en-US',
+                        {style:'currency', currency: 'USD', currencyDisplay: 'symbol'}).format(value)
+                      }
       },
       cantidad: {     title: 'Cantidad',
-                      filter: false
+                      filter: false,
+                      valuePrepareFunction: (value) => { return Intl.NumberFormat('en-US',
+                        {style:'decimal'}).format(value)
+                      }
+      },
+      total: {        title: 'Total',
+                      filter: false,
+                      valuePrepareFunction: (cell, row) => { return Intl.NumberFormat('en-US',
+                        {style:'currency', currency: 'USD', currencyDisplay: 'symbol'}).format(row.cantidad*row.preciounitario)
+                      }
       },
     },
 
@@ -65,16 +79,30 @@ export class ComprasComponent implements OnInit {
 
   source: LocalDataSource;
 
-  constructor(public apiService: ApiService, public functions: FunctionsService, public router : Router) {
-    this.source = new LocalDataSource();
+  constructor(public apiService: ApiService, public functions: FunctionsService, public router : Router) {}
 
+  ngOnInit() {
     this.apiService.get("compras").subscribe((data: Compra[])=>{
-      console.log(data);
-      this.source = new LocalDataSource(data);
+      this.compras = data;
+      console.log(this.compras);
+      this.apiService.get("productos").subscribe((data : Producto[])=>{
+        this.productos = data
+        console.log(this.productos);
+        this.compras.forEach((item:any, index:any) => {
+            this.compras[index].producto =  this.productos.filter(x => x.id == item.producto_id)[0].nombre;
+        })
+        this.source = new LocalDataSource(this.compras);
+      });
+      this.apiService.get("lotes").subscribe((data : Lote[])=>{
+        this.lotes = data
+        console.log(this.lotes);
+        this.compras.forEach((item:any, index:any) => {
+            this.compras[index].lote =  this.lotes.filter(x => x.id == item.lote_id)[0].nombre;
+        })
+        this.source = new LocalDataSource(this.compras);
+      });
     });
-
   }
-  ngOnInit() {}
 
   // SEARCH
   onSearch(query: string = '') {
@@ -123,7 +151,7 @@ export class ComprasComponent implements OnInit {
 
   // LINKS CUSTOM
   createLink(event) { this.router.navigateByUrl('/compra/add'); }
-  editLink(event) { this.router.navigateByUrl('/compra/add/'+event.newData.id); }
+  editLink(event) { this.router.navigateByUrl('/compra/add/'+event.data.id); }
 
 
 }
