@@ -3,21 +3,22 @@ import { ActivatedRoute } from '@angular/router';
 import { HttpErrorResponse } from '@angular/common/http';
 import { DatePipe } from '@angular/common';
 
-import { ApiService } from '../api.service';
-import { FunctionsService } from '../functions.service';
-import { Compra } from '../models/compra';
-import { Producto } from '../models/producto';
-import { Lote } from '../models/lote';
+import { ApiService } from '../../services/api.service';
+import { FunctionsService } from '../../services/functions.service';
+
+import { Venta } from '../../models/venta';
+import { Producto } from '../../models/producto';
+import { Lote } from '../../models/lote';
 
 
 @Component({
-  selector: 'app-compra-add',
-  templateUrl: './compra-add.component.html',
-  styleUrls: ['./compra-add.component.scss']
+  selector: 'app-venta-add',
+  templateUrl: './venta-add.component.html',
+  styleUrls: ['./venta-add.component.scss']
 })
-export class CompraAddComponent implements OnInit {
+export class VentaAddComponent implements OnInit {
   public datePipe : DatePipe  = new DatePipe("en-US");
-  public compra : Compra  = new Compra();
+  public venta : Venta  = new Venta();
   public productos : Producto[]
   public lotes : Lote[]
   public unitSelected = "U";
@@ -29,30 +30,30 @@ export class CompraAddComponent implements OnInit {
     // GET ROUTE PARAMS
     this.acRoute.params.subscribe((data : any)=>{
       if(data && data.id){
-        this.apiService.get("compras/"+data.id).subscribe((data : Compra)=>{
-          this.compra = data;
+        this.apiService.get("venta/"+data.id).subscribe((data : Venta)=>{
+          this.venta = data;
         });
       }
       else
       { var date = new Date();
-        this.compra = new Compra();
-        this.compra.fecha = this.datePipe.transform(date,"yyyy-MM-dd");
+        this.venta = new Venta();
+        this.venta.fecha = this.datePipe.transform(date,"yyyy-MM-dd");
       }
     })
 
     // GET PRODUCTOS & LOTES INDEX
     this.apiService.get("productos").subscribe((data : Producto[])=>{
       console.log(data);
-      this.productos = data;
-      if(this.compra.producto_id == undefined){
-        this.compra.producto_id = data[0].id
+      this.productos = data
+      if(this.venta.producto_id == undefined){
+        this.venta.producto_id = data[0].id
       }
     });
     this.apiService.get("lotes").subscribe((data : Lote[])=>{
       console.log(data);
-      this.lotes = data
-      if(this.compra.lote_id == undefined){
-        this.compra.lote_id = data[data.length-1].id
+      this.lotes = data;
+      if(this.venta.lote_id == undefined){
+        this.venta.lote_id = data[data.length-1].id
       }
     });
 
@@ -66,12 +67,13 @@ export class CompraAddComponent implements OnInit {
 
   // SUBMIT: UPDATE OR CREATE
   public onSubmit(){
-    console.log("Adding a compra: " + this.compra.extdoc);
-    if(this.compra.id){   // UPDATE
-      this.apiService.update("compras/"+this.compra.id,this.compra).subscribe(
-        (res: Compra) => {
+    console.log("Adding a venta: " + this.venta.extdoc);
+    if(this.venta.id){   // UPDATE
+      this.apiService.update("venta/"+this.venta.id,this.venta).subscribe(
+        (res: Venta) => {
         console.log(res);
-        this.functions.showNotification('Compra actualizado: '+res.extdoc, 'success', 'pe-7s-plus');
+        this.venta = new Venta();
+        this.functions.showNotification('Venta actualizado: '+res.extdoc, 'success', 'pe-7s-plus');
       },
       (err: HttpErrorResponse) => {
         if (err.error instanceof Error) {
@@ -83,10 +85,11 @@ export class CompraAddComponent implements OnInit {
       });
     }
     else                 // CREATE
-    this.apiService.post("compras",this.compra).subscribe(
-      (res: Compra) => {
+    this.apiService.post("venta",this.venta).subscribe(
+      (res: Venta) => {
       console.log(res);
-      this.functions.showNotification('Compra guardado: '+res.extdoc, 'success', 'pe-7s-plus');
+      this.venta = new Venta();
+      this.functions.showNotification('Venta guardado: '+res.extdoc, 'success', 'pe-7s-plus');
     },
     (err: HttpErrorResponse) => {
       if (err.error instanceof Error) {

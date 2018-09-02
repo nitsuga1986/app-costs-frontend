@@ -4,11 +4,12 @@ import { HttpErrorResponse } from '@angular/common/http';
 
 import { Ng2SmartTableModule, LocalDataSource } from 'ng2-smart-table';
 
-import { ApiService } from '../api.service';
-import { FunctionsService } from '../functions.service';
-import { Compra } from '../models/compra';
-import { Producto } from '../models/producto';
-import { Lote } from '../models/lote';
+import { ApiService } from '../../services/api.service';
+import { FunctionsService } from '../../services/functions.service';
+
+import { Compra } from '../../models/compra';
+import { Producto } from '../../models/producto';
+import { Lote } from '../../models/lote';
 
 @Component({
   selector: 'app-compras',

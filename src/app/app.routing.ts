@@ -3,15 +3,15 @@ import { CommonModule, } from '@angular/common';
 import { BrowserModule  } from '@angular/platform-browser';
 import { Routes, RouterModule } from '@angular/router';
 
-import { ProductosComponent } from './productos/productos.component';
-import { LotesComponent } from './lotes/lotes.component';
-import { LoteAddComponent } from './lote-add/lote-add.component';
-import { ComprasComponent } from './compras/compras.component';
-import { CompraAddComponent } from './compra-add/compra-add.component';
-import { VentumComponent } from './ventum/ventum.component';
-import { VentaAddComponent } from './venta-add/venta-add.component';
+import { HomeComponent } from './views/home/home.component';
+import { ProductosComponent } from './views/productos/productos.component';
+import { LotesComponent } from './views/lotes/lotes.component';
+import { LoteAddComponent } from './views/lote-add/lote-add.component';
+import { ComprasComponent } from './views/compras/compras.component';
+import { CompraAddComponent } from './views/compra-add/compra-add.component';
+import { VentumComponent } from './views/ventum/ventum.component';
+import { VentaAddComponent } from './views/venta-add/venta-add.component';
 
-import { HomeComponent } from './home/home.component';
 
 const routes: Routes =[
     { path: 'producto',       component: ProductosComponent },

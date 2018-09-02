@@ -4,20 +4,23 @@ import { HttpErrorResponse } from '@angular/common/http';
 
 import { Ng2SmartTableModule, LocalDataSource } from 'ng2-smart-table';
 
-import { ApiService } from '../api.service';
-import { FunctionsService } from '../functions.service';
-import { Lote } from '../models/lote';
-import { Producto } from '../models/producto';
+import { ApiService } from '../../services/api.service';
+import { FunctionsService } from '../../services/functions.service';
+
+import { Venta } from '../../models/venta';
+import { Producto } from '../../models/producto';
+import { Lote } from '../../models/lote';
 
 @Component({
-  selector: 'app-lotes',
-  templateUrl: './lotes.component.html',
-  styleUrls: ['./lotes.component.css'],
+  selector: 'app-ventum',
+  templateUrl: './ventum.component.html',
+  styleUrls: ['./ventum.component.css'],
 })
 
-export class LotesComponent implements OnInit {
-  public productos : Producto[];
-  public lotes : Lote[];
+export class VentumComponent implements OnInit {
+    public ventas : Venta[]
+    public productos : Producto[]
+    public lotes : Lote[]
     settings = {
       delete: {
         deleteButtonContent:  '<i class="fa fa-trash fa-2x fa-fw text-muted" aria-hidden="true" title=""></i>',
@@ -41,41 +44,67 @@ export class LotesComponent implements OnInit {
                         filter: false,
                         sortDirection:'desc'
         },
-        nombre: {       title: 'Nombre',
+        extdoc: {       title: 'extdoc',
                         filter: false
         },
-        fechaelav: {    title: 'Fecha de elaboración',
+        fecha: {        title: 'Fecha de venta',
                         filter: false
         },
-        fechavenc: {    title: 'Fecha de vencimiento',
+        producto: {  title: 'Producto',
                         filter: false
         },
-        producto: { title: 'Producto',
+        lote: {      title: 'Lote',
                         filter: false
+        },
+        preciounitario:{title: 'Precio',
+                        filter: false,
+                        valuePrepareFunction: (value) => { return Intl.NumberFormat('en-US',
+                          {style:'currency', currency: 'USD', currencyDisplay: 'symbol'}).format(value)
+                        }
+        },
+        cantidad: {     title: 'Cantidad',
+                        filter: false,
+                        valuePrepareFunction: (value) => { return Intl.NumberFormat('en-US',
+                          {style:'decimal'}).format(value)
+                        }
+        },
+        total: {        title: 'Total',
+                        filter: false,
+                        valuePrepareFunction: (cell, row) => { return Intl.NumberFormat('en-US',
+                          {style:'currency', currency: 'USD', currencyDisplay: 'symbol'}).format(row.cantidad*row.preciounitario)
+                        }
         },
       },
   };
 
   source: LocalDataSource;
 
-  constructor(public apiService: ApiService, public functions: FunctionsService, public router : Router) {
-    this.source = new LocalDataSource();
-  }
+  constructor(public apiService: ApiService, public functions: FunctionsService, public router : Router) {}
+
   ngOnInit() {
-    this.apiService.get("lotes").subscribe((data: Lote[])=>{
-      this.lotes = data;
-      console.log(this.lotes);
+    this.apiService.get("venta").subscribe((data: Venta[])=>{
+      this.ventas = data;
+      console.log(this.ventas);
       this.apiService.get("productos").subscribe((data : Producto[])=>{
         this.productos = data
         console.log(this.productos);
-        this.lotes.forEach((item:any, index:any) => {
-            this.lotes[index].producto =  this.productos.filter(x => x.id == item.productoterm)[0].nombre;
+        this.ventas.forEach((item:any, index:any) => {
+            this.ventas[index].producto =  this.productos.filter(x => x.id == item.producto_id)[0].nombre;
         })
-        this.source = new LocalDataSource(this.lotes);
+        this.source = new LocalDataSource(this.ventas);
+      });
+      this.apiService.get("lotes").subscribe((data : Lote[])=>{
+        this.lotes = data
+        console.log(this.lotes);
+        this.ventas.forEach((item:any, index:any) => {
+            this.ventas[index].lote =  this.lotes.filter(x => x.id == item.lote_id)[0].nombre;
+        })
+        this.source = new LocalDataSource(this.ventas);
       });
     });
   }
 
+  // SEARCH
   onSearch(query: string = '') {
     if (query == '') { this.source.setFilter([], true); }
     else
@@ -83,13 +112,11 @@ export class LotesComponent implements OnInit {
       // fields we want to include in the search
       { field: 'id',
         search: query },
-      { field: 'nombre',
+      { field: 'extdoc',
         search: query },
-      { field: 'fechaelav',
+      { field: 'fecha',
         search: query },
       { field: 'fechavenc',
-        search: query },
-      { field: 'productoterm',
         search: query },
     ], false);
     // second parameter specifying whether to perform 'AND' or 'OR' search
@@ -102,14 +129,14 @@ export class LotesComponent implements OnInit {
 
   // DELETE
   onDeleteConfirm(event) {
-    if (window.confirm('Desea borrar: '+event.data.nombre+'?')) {
-      console.log("Delete: "+event.data.nombre);
-      var path = 'lotes/' + event.data.id;
+    if (window.confirm('Desea borrar: '+event.data.extdoc+'?')) {
+      console.log("Delete: "+event.data.extdoc);
+      var path = 'venta/' + event.data.id;
       this.apiService.delete(path).subscribe(
          res => {
            console.log("Confirmed");
            this.source.remove(event.data);
-           this.functions.showNotification('Producto eliminado: '+event.data.nombre, 'success', 'pe-7s-plus');
+           this.functions.showNotification('Venta eliminada: '+event.data.extdoc, 'success', 'pe-7s-plus');
        },
        (err: HttpErrorResponse) => {
          if (err.error instanceof Error) {
@@ -123,7 +150,7 @@ export class LotesComponent implements OnInit {
   }
 
   // LINKS CUSTOM
-  createLink(event) { this.router.navigateByUrl('/lote/add'); }
-  editLink(event) { this.router.navigateByUrl('/lote/add/'+event.data.id); }
+  createLink(event) { this.router.navigateByUrl('/venta/add'); }
+  editLink(event) {   this.router.navigateByUrl('/venta/add/'+event.data.id); }
 
 }

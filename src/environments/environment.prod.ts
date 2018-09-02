@@ -1,6 +1,6 @@
 export const environment = {
   production: true,
   token_auth_config: {
-    apiBase: 'https://sazon-backend.herokuapp.com/'
+    apiBase: 'https://sazon-backend.herokuapp.com'
   }
 };

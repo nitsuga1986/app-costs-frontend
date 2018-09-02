@@ -3,10 +3,10 @@ import { ActivatedRoute } from '@angular/router';
 import { HttpErrorResponse } from '@angular/common/http';
 import { DatePipe } from '@angular/common';
 
-import { ApiService } from '../api.service';
-import { FunctionsService } from '../functions.service';
-import { Lote } from '../models/lote';
-import { Producto } from '../models/producto';
+import { ApiService } from '../../services/api.service';
+import { FunctionsService } from '../../services/functions.service';
+import { Lote } from '../../models/lote';
+import { Producto } from '../../models/producto';
 
 
 @Component({
