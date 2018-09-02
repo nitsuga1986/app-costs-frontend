@@ -6,7 +6,9 @@ import { HttpModule } from '@angular/http';
 import { RouterModule } from '@angular/router';
 import { DatePipe } from '@angular/common';
 
+import { Angular2TokenService } from 'angular2-token';
 import { Ng2SmartTableModule } from 'ng2-smart-table';
+import { ModalModule } from "ngx-bootstrap";
 
 import { AppRoutingModule } from './app.routing';
 import { NavbarModule } from './shared/navbar/navbar.module';
@@ -52,9 +54,10 @@ import { FunctionsService } from './functions.service';
     SidebarModule,
     RouterModule,
     AppRoutingModule,
-    LbdModule
+    LbdModule,
+    ModalModule.forRoot()
   ],
-  providers: [DatePipe, ApiService, FunctionsService],
+  providers: [Angular2TokenService, ApiService, DatePipe, FunctionsService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

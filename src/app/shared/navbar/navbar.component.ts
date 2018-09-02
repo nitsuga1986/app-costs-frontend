@@ -1,6 +1,9 @@
-import { Component, OnInit, ElementRef } from '@angular/core';
+import { Component, OnInit, ElementRef, ViewChild, Input, EventEmitter } from '@angular/core';
 import { ROUTES } from '../../sidebar/sidebar.component';
-import {Location, LocationStrategy, PathLocationStrategy} from '@angular/common';
+import { Location, LocationStrategy, PathLocationStrategy } from '@angular/common';
+
+import {AuthDialogComponent} from "../auth-dialog/auth-dialog.component";
+import {Angular2TokenService} from "angular2-token";
 
 @Component({
     // moduleId: module.id,
@@ -9,12 +12,13 @@ import {Location, LocationStrategy, PathLocationStrategy} from '@angular/common'
 })
 
 export class NavbarComponent implements OnInit{
+    @ViewChild('authDialog') authDialog: AuthDialogComponent;
     private listTitles: any[];
     location: Location;
     private toggleButton: any;
     private sidebarVisible: boolean;
 
-    constructor(location: Location,  private element: ElementRef) {
+    constructor(location: Location,  private element: ElementRef, public tokenAuthService:Angular2TokenService) {
       this.location = location;
           this.sidebarVisible = false;
     }
@@ -60,4 +64,9 @@ export class NavbarComponent implements OnInit{
       }
       return 'Dashboard';
     }
+
+    presentAuthDialog(mode?: 'login'| 'register'){
+      this.authDialog.openDialog(mode);
+    }
+
 }

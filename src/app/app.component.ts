@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { LocationStrategy, PlatformLocation, Location } from '@angular/common';
+import {Angular2TokenService} from "angular2-token";
+import {environment} from "../environments/environment";
 
 @Component({
   selector: 'app-root',
@@ -8,7 +10,9 @@ import { LocationStrategy, PlatformLocation, Location } from '@angular/common';
 })
 export class AppComponent implements OnInit {
 
-     constructor(public location: Location) {}
+     constructor(private authToken: Angular2TokenService, public location: Location) {
+       this.authToken.init(environment.token_auth_config);
+     }
 
     ngOnInit(){
     }
