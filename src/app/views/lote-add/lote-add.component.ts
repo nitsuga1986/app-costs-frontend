@@ -45,6 +45,7 @@ export class LoteAddComponent implements OnInit {
         this.lote.nombre = "Lote_"+this.datePipe.transform(date,"yy_MM_dd");
         this.lote.fechaelav = this.datePipe.transform(date,"yyyy-MM-dd");
         this.lote.fechavenc = this.datePipe.transform(date.setMonth(date.getMonth()+3),"yyyy-MM-dd");
+        this.lote.cantidad = 1;
       }
     })
   }

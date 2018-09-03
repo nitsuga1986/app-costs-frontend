@@ -51,7 +51,10 @@ export class LotesComponent implements OnInit {
         fechavenc: {    title: 'Fecha de vencimiento',
                         filter: false
         },
-        producto: { title: 'Producto',
+        producto: {     title: 'Producto',
+                        filter: false
+        },
+        cantidad: {     title: 'Cantidad',
                         filter: false
         },
       },

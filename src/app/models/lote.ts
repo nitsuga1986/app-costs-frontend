@@ -5,4 +5,5 @@ export class Lote {
     public fechavenc:string;
     public productoterm:number;
     public producto:any;
+    public cantidad:number;
 }
