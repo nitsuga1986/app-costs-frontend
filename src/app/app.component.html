@@ -2,7 +2,7 @@
 
     <app-sidebar *ngIf="(authService.userSignedIn$ | async)"></app-sidebar>
 
-    <div [ngClass]="{'main-panel': !(authService.userSignedIn$ | async), 'main-panel': (authService.userSignedIn$ | async)}">
+    <div [ngClass]="{'main': !(authService.userSignedIn$ | async), 'main-panel': (authService.userSignedIn$ | async)}">
         <navbar-cmp></navbar-cmp>
         <router-outlet></router-outlet>
         <div *ngIf="isMap('maps')">
