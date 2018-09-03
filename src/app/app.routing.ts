@@ -3,6 +3,10 @@ import { CommonModule, } from '@angular/common';
 import { BrowserModule  } from '@angular/platform-browser';
 import { Routes, RouterModule } from '@angular/router';
 
+import {AuthGuard} from "./guards/auth.guard";
+
+import { LandingComponent } from './views/landing/landing.component';
+
 import { HomeComponent } from './views/home/home.component';
 import { ProductosComponent } from './views/productos/productos.component';
 import { LotesComponent } from './views/lotes/lotes.component';
@@ -11,21 +15,24 @@ import { ComprasComponent } from './views/compras/compras.component';
 import { CompraAddComponent } from './views/compra-add/compra-add.component';
 import { VentumComponent } from './views/ventum/ventum.component';
 import { VentaAddComponent } from './views/venta-add/venta-add.component';
+import { ProfileComponent } from './views/profile/profile.component';
 
 
 const routes: Routes =[
-    { path: 'producto',       component: ProductosComponent },
-    { path: 'lotes',          component: LotesComponent },
-    { path: 'lote/add',       component: LoteAddComponent },
-    { path: 'lote/add/:id',   component: LoteAddComponent },
-    { path: 'compras',        component: ComprasComponent },
-    { path: 'compra/add',     component: CompraAddComponent },
-    { path: 'compra/add/:id', component: CompraAddComponent },
-    { path: 'ventas',         component: VentumComponent },
-    { path: 'venta/add',      component: VentaAddComponent },
-    { path: 'venta/add/:id',  component: VentaAddComponent },
-    { path: 'dashboard',      component: HomeComponent },
-    { path: '',               redirectTo: 'dashboard', pathMatch: 'full' }
+    { path: 'landing',        component: LandingComponent },
+    { path: 'producto',       component: ProductosComponent, canActivate: [AuthGuard]  },
+    { path: 'lotes',          component: LotesComponent, canActivate: [AuthGuard]  },
+    { path: 'lote/add',       component: LoteAddComponent, canActivate: [AuthGuard]  },
+    { path: 'lote/add/:id',   component: LoteAddComponent, canActivate: [AuthGuard]  },
+    { path: 'compras',        component: ComprasComponent, canActivate: [AuthGuard]  },
+    { path: 'compra/add',     component: CompraAddComponent, canActivate: [AuthGuard]  },
+    { path: 'compra/add/:id', component: CompraAddComponent, canActivate: [AuthGuard]  },
+    { path: 'ventas',         component: VentumComponent, canActivate: [AuthGuard]  },
+    { path: 'venta/add',      component: VentaAddComponent, canActivate: [AuthGuard]  },
+    { path: 'venta/add/:id',  component: VentaAddComponent, canActivate: [AuthGuard]  },
+    { path: 'dashboard',      component: HomeComponent, canActivate: [AuthGuard]  },
+    { path: 'profile',        component: ProfileComponent, canActivate: [AuthGuard] },
+    { path: '',               redirectTo: 'landing', pathMatch: 'full' }
 ];
 
 @NgModule({

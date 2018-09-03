@@ -45,18 +45,17 @@
             </ul>
 
             <ul class="nav navbar-nav navbar-right">
-              <li  *ngIf="!tokenAuthService.userSignedIn()">
-                <a href="javascript:void(0)" (click)="presentAuthDialog()">LOGIN</a>
-              </li>
-              <li *ngIf="!tokenAuthService.userSignedIn()">
-                <a href="javascript:void(0)" (click)="presentAuthDialog('register')">REGISTER</a>
-              </li>
-              <li *ngIf="tokenAuthService.userSignedIn()">
-                <a href="javascript:void(0)" [routerLink]="['/profile']">PROFILE</a>
-              </li>
-              <li *ngIf="tokenAuthService.userSignedIn()">
-                <a href="javascript:void(0)" (click)="tokenAuthService.signOut()">LOGOUT</a>
-              </li>
+
+              <li *ngIf="!(authService.userSignedIn$ | async)">
+                <a (click)="presentAuthDialog()" href="javascript:void(0)" >LOGIN</a></li>
+              <li *ngIf="!(authService.userSignedIn$ | async)">
+                <a (click)="presentAuthDialog('register')" href="javascript:void(0)">REGISTER</a></li>
+
+              <li *ngIf="(authService.userSignedIn$ | async)">
+                <a [routerLink]="['/profile']" href="javascript:void(0)">PROFILE</a></li>
+              <li *ngIf="(authService.userSignedIn$ | async)">
+                <a (click)="logOut()" href="javascript:void(0)">LOGOUT</a></li>
+
             </ul>
         </div>
     </div>

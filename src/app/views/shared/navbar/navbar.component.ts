@@ -1,9 +1,11 @@
 import { Component, OnInit, ElementRef, ViewChild, Input, EventEmitter } from '@angular/core';
-import { ROUTES } from '../../sidebar/sidebar.component';
 import { Location, LocationStrategy, PathLocationStrategy } from '@angular/common';
+import {Router} from "@angular/router";
+
+import { ROUTES } from '../../sidebar/sidebar.component';
 
 import {AuthDialogComponent} from "../auth-dialog/auth-dialog.component";
-import {Angular2TokenService} from "angular2-token";
+import { AuthService } from "../../../services/auth.service";
 
 @Component({
     // moduleId: module.id,
@@ -18,7 +20,7 @@ export class NavbarComponent implements OnInit{
     private toggleButton: any;
     private sidebarVisible: boolean;
 
-    constructor(location: Location,  private element: ElementRef, public tokenAuthService:Angular2TokenService) {
+    constructor(location: Location,  private element: ElementRef, public authService:AuthService, private router:Router) {
       this.location = location;
           this.sidebarVisible = false;
     }
@@ -67,6 +69,9 @@ export class NavbarComponent implements OnInit{
 
     presentAuthDialog(mode?: 'login'| 'register'){
       this.authDialog.openDialog(mode);
+    }
+    logOut(){
+      this.authService.logOutUser().subscribe(() => this.router.navigate(['/']));
     }
 
 }
