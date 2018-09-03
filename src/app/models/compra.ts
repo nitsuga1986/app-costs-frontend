@@ -9,4 +9,6 @@ export class Compra {
     public preciounitario:number;
     public cantidad:number;
     public total:number;
+    public user_id:number;
+    public user:any;
 }

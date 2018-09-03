@@ -10,6 +10,7 @@ import { FunctionsService } from '../../services/functions.service';
 import { Compra } from '../../models/compra';
 import { Producto } from '../../models/producto';
 import { Lote } from '../../models/lote';
+import { User } from '../../models/user';
 
 @Component({
   selector: 'app-compras',
@@ -21,6 +22,7 @@ export class ComprasComponent implements OnInit {
   public compras : Compra[]
   public productos : Producto[]
   public lotes : Lote[]
+  public users : User[]
   settings = {
     delete: {
       deleteButtonContent:  '<i class="fa fa-trash fa-2x fa-fw text-muted" aria-hidden="true" title=""></i>',
@@ -74,6 +76,9 @@ export class ComprasComponent implements OnInit {
                         {style:'currency', currency: 'USD', currencyDisplay: 'symbol'}).format(row.cantidad*row.preciounitario)
                       }
       },
+      user: {     title: 'Usuario',
+                  filter: false
+      },
     },
 
   };
@@ -83,9 +88,11 @@ export class ComprasComponent implements OnInit {
   constructor(public apiService: ApiService, public functions: FunctionsService, public router : Router) {}
 
   ngOnInit() {
+    // GET compras
     this.apiService.get("compras").subscribe((data: Compra[])=>{
       this.compras = data;
       console.log(this.compras);
+      // GET productos => appendTo compras
       this.apiService.get("productos").subscribe((data : Producto[])=>{
         this.productos = data
         console.log(this.productos);
@@ -94,11 +101,21 @@ export class ComprasComponent implements OnInit {
         })
         this.source = new LocalDataSource(this.compras);
       });
+      // GET lotes => appendTo compras
       this.apiService.get("lotes").subscribe((data : Lote[])=>{
         this.lotes = data
         console.log(this.lotes);
         this.compras.forEach((item:any, index:any) => {
             this.compras[index].lote =  this.lotes.filter(x => x.id == item.lote_id)[0].nombre;
+        })
+        this.source = new LocalDataSource(this.compras);
+      });
+      // GET users => appendTo compras
+      this.apiService.get("users").subscribe((data : User[])=>{
+        this.users = data
+        console.log(this.users);
+        this.compras.forEach((item:any, index:any) => {
+            this.compras[index].user =  this.users.filter(x => x.id == item.user_id)[0].nombre;
         })
         this.source = new LocalDataSource(this.compras);
       });

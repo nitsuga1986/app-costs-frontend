@@ -10,6 +10,7 @@ import { FunctionsService } from '../../services/functions.service';
 import { Venta } from '../../models/venta';
 import { Producto } from '../../models/producto';
 import { Lote } from '../../models/lote';
+import { User } from '../../models/user';
 
 @Component({
   selector: 'app-ventum',
@@ -21,6 +22,7 @@ export class VentumComponent implements OnInit {
     public ventas : Venta[]
     public productos : Producto[]
     public lotes : Lote[]
+    public users : User[]
     settings = {
       delete: {
         deleteButtonContent:  '<i class="fa fa-trash fa-2x fa-fw text-muted" aria-hidden="true" title=""></i>',
@@ -74,6 +76,9 @@ export class VentumComponent implements OnInit {
                           {style:'currency', currency: 'USD', currencyDisplay: 'symbol'}).format(row.cantidad*row.preciounitario)
                         }
         },
+        user: {     title: 'Usuario',
+                    filter: false
+        },
       },
   };
 
@@ -82,9 +87,11 @@ export class VentumComponent implements OnInit {
   constructor(public apiService: ApiService, public functions: FunctionsService, public router : Router) {}
 
   ngOnInit() {
+    // GET venta
     this.apiService.get("venta").subscribe((data: Venta[])=>{
       this.ventas = data;
       console.log(this.ventas);
+      // GET productos => appendTo compras
       this.apiService.get("productos").subscribe((data : Producto[])=>{
         this.productos = data
         console.log(this.productos);
@@ -93,11 +100,21 @@ export class VentumComponent implements OnInit {
         })
         this.source = new LocalDataSource(this.ventas);
       });
+      // GET lotes => appendTo compras
       this.apiService.get("lotes").subscribe((data : Lote[])=>{
         this.lotes = data
         console.log(this.lotes);
         this.ventas.forEach((item:any, index:any) => {
             this.ventas[index].lote =  this.lotes.filter(x => x.id == item.lote_id)[0].nombre;
+        })
+        this.source = new LocalDataSource(this.ventas);
+      });
+      // GET users => appendTo compras
+      this.apiService.get("users").subscribe((data : User[])=>{
+        this.users = data
+        console.log(this.users);
+        this.ventas.forEach((item:any, index:any) => {
+            this.ventas[index].user =  this.users.filter(x => x.id == item.user_id)[0].nombre;
         })
         this.source = new LocalDataSource(this.ventas);
       });
