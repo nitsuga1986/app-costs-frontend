@@ -12,7 +12,7 @@ export class ForFilter implements PipeTransform {
   transform(items: any[], filter: Object): any {
       console.log(filter);
       if (this.authTokenService.userSignedIn()) {
-          return items;
+          return items.filter(item => item.forLogged);
       }
       // filter items array, items which match and return true will be
       // kept, false will be filtered out

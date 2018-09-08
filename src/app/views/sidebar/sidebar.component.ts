@@ -18,6 +18,7 @@ export const ROUTES: RouteInfo[] = [
   { path: 'profile', title: 'Usuario',  icon:'pe-7s-user', class: '', forLogged:true },
   { path: 'login', title: 'Ingresar',  icon:'pe-7s-right-arrow', class: '', forLogged:false },
   { path: 'register', title: 'Registrarse',  icon:'pe-7s-left-arrow', class: '', forLogged:false },
+  { path: 'logout', title: 'Salir',  icon:'pe-7s-left-arrow', class: '', forLogged:true },
 ];
 
 @Component({
