@@ -36,6 +36,7 @@ import { ApiService } from './services/api.service';
 import { FunctionsService } from './services/functions.service';
 
 import { AuthService } from "./services/auth.service";
+import { AuthPageComponent } from './views/auth-page/auth-page.component';
 
 @NgModule({
   declarations: [
@@ -49,7 +50,8 @@ import { AuthService } from "./services/auth.service";
     CompraAddComponent,
     VentumComponent,
     VentaAddComponent,
-    ProfileComponent
+    ProfileComponent,
+    AuthPageComponent
   ],
   imports: [
     BrowserModule,

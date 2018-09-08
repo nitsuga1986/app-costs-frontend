@@ -1,8 +1,8 @@
 <div class="wrapper">
 
-    <app-sidebar *ngIf="(authService.userSignedIn$ | async)"></app-sidebar>
+    <app-sidebar></app-sidebar>
 
-    <div [ngClass]="{'main': !(authService.userSignedIn$ | async), 'main-panel': (authService.userSignedIn$ | async)}">
+    <div class="main-panel">
         <navbar-cmp></navbar-cmp>
         <router-outlet></router-outlet>
         <div *ngIf="isMap('maps')">

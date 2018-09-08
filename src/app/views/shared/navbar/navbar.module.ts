@@ -11,7 +11,7 @@ import { ModalModule } from "ngx-bootstrap";
 @NgModule({
     imports: [ ModalModule, RouterModule, CommonModule, FormsModule ],
     declarations: [ NavbarComponent, AuthDialogComponent, LoginFormComponent, RegisterFormComponent ],
-    exports: [ NavbarComponent ]
+    exports: [ NavbarComponent, LoginFormComponent, RegisterFormComponent ]
 })
 
 export class NavbarModule {}

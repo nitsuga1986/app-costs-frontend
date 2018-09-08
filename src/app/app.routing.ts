@@ -16,6 +16,7 @@ import { CompraAddComponent } from './views/compra-add/compra-add.component';
 import { VentumComponent } from './views/ventum/ventum.component';
 import { VentaAddComponent } from './views/venta-add/venta-add.component';
 import { ProfileComponent } from './views/profile/profile.component';
+import { AuthPageComponent } from './views/auth-page/auth-page.component';
 
 
 const routes: Routes =[
@@ -32,6 +33,8 @@ const routes: Routes =[
     { path: 'venta/add/:id',  component: VentaAddComponent, canActivate: [AuthGuard]  },
     { path: 'dashboard',      component: HomeComponent, canActivate: [AuthGuard]  },
     { path: 'profile',        component: ProfileComponent, canActivate: [AuthGuard] },
+    { path: 'login',          component: AuthPageComponent },
+    { path: 'register',       component: AuthPageComponent },
     { path: '',               redirectTo: 'landing', pathMatch: 'full' }
 ];
 

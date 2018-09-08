@@ -1,10 +1,10 @@
 import { Component, OnInit, ElementRef, ViewChild, Input, EventEmitter } from '@angular/core';
 import { Location, LocationStrategy, PathLocationStrategy } from '@angular/common';
-import {Router} from "@angular/router";
+import { Router } from "@angular/router";
 
 import { ROUTES } from '../../sidebar/sidebar.component';
 
-import {AuthDialogComponent} from "../auth-dialog/auth-dialog.component";
+import { AuthDialogComponent } from "../auth-dialog/auth-dialog.component";
 import { AuthService } from "../../../services/auth.service";
 
 @Component({
@@ -22,7 +22,7 @@ export class NavbarComponent implements OnInit{
 
     constructor(location: Location,  private element: ElementRef, public authService:AuthService, private router:Router) {
       this.location = location;
-          this.sidebarVisible = false;
+      this.sidebarVisible = false;
     }
 
     ngOnInit(){

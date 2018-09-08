@@ -6,16 +6,18 @@ declare interface RouteInfo {
     title: string;
     icon: string;
     class: string;
-    canActivate: boolean;
+    forLogged: boolean;
 }
 export const ROUTES: RouteInfo[] = [
-  { path: 'landing', title: 'Home',  icon: 'pe-7s-home', class: '', canActivate:true },
-  { path: 'dashboard', title: 'Dashboard',  icon: 'pe-7s-graph', class: '', canActivate:false },
-  { path: 'ventas', title: 'Ventas',   icon:'pe-7s-cash', class: '', canActivate:false },
-  { path: 'compras', title: 'Compras',  icon:'pe-7s-credit', class: '', canActivate:false },
-  { path: 'lotes', title: 'Lotes',  icon:'pe-7s-box1', class: '', canActivate:false },
-  { path: 'producto', title: 'Productos',  icon:'pe-7s-cart', class: '', canActivate:false },
-  { path: 'profile', title: 'Usuario',  icon:'pe-7s-user', class: '', canActivate:false },
+  { path: 'landing', title: 'Home',  icon: 'pe-7s-home', class: '', forLogged:false },
+  { path: 'dashboard', title: 'Dashboard',  icon: 'pe-7s-graph', class: '', forLogged:true },
+  { path: 'ventas', title: 'Ventas',   icon:'pe-7s-cash', class: '', forLogged:true },
+  { path: 'compras', title: 'Compras',  icon:'pe-7s-credit', class: '', forLogged:true },
+  { path: 'lotes', title: 'Lotes',  icon:'pe-7s-box1', class: '', forLogged:true },
+  { path: 'producto', title: 'Productos',  icon:'pe-7s-cart', class: '', forLogged:true },
+  { path: 'profile', title: 'Usuario',  icon:'pe-7s-user', class: '', forLogged:true },
+  { path: 'login', title: 'Ingresar',  icon:'pe-7s-right-arrow', class: '', forLogged:false },
+  { path: 'register', title: 'Registrarse',  icon:'pe-7s-left-arrow', class: '', forLogged:false },
 ];
 
 @Component({
@@ -24,7 +26,6 @@ export const ROUTES: RouteInfo[] = [
 })
 export class SidebarComponent implements OnInit {
   menuItems: any[];
-
   constructor() { }
 
   ngOnInit() {

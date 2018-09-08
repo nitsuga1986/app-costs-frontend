@@ -16,45 +16,19 @@
                         <p class="hidden-lg hidden-md">{{getTitle()}}</p>
                     </a>
                 </li>
-                <!--
-                <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                        <i class="fa fa-globe"></i>
-                        <b class="caret"></b>
-                        <span class="notification hidden-sm hidden-xs">5</span>
-                        <p class="hidden-lg hidden-md">
-                            5 Notifications
-                            <b class="caret"></b>
-                        </p>
-                    </a>
-                    <ul class="dropdown-menu">
-                        <li><a href="#">Notification 1</a></li>
-                        <li><a href="#">Notification 2</a></li>
-                        <li><a href="#">Notification 3</a></li>
-                        <li><a href="#">Notification 4</a></li>
-                        <li><a href="#">Another notification</a></li>
-                    </ul>
-                </li>
-                <li>
-                    <a href="#">
-                        <i class="fa fa-search"></i>
-                        <p class="hidden-lg hidden-md">Search</p>
-                    </a>
-                </li>
-              -->
             </ul>
 
             <ul class="nav navbar-nav navbar-right">
 
               <li *ngIf="!(authService.userSignedIn$ | async)">
-                <a (click)="presentAuthDialog()" href="javascript:void(0)" >LOGIN</a></li>
+                <a (click)="presentAuthDialog()" href="javascript:void(0)" >Ingresar</a></li>
               <li *ngIf="!(authService.userSignedIn$ | async)">
-                <a (click)="presentAuthDialog('register')" href="javascript:void(0)">REGISTER</a></li>
+                <a (click)="presentAuthDialog('register')" href="javascript:void(0)">Regsitrarse</a></li>
 
               <li *ngIf="(authService.userSignedIn$ | async)">
-                <a [routerLink]="['/profile']" href="javascript:void(0)">PROFILE</a></li>
+                <a [routerLink]="['/profile']" href="javascript:void(0)">Perfil</a></li>
               <li *ngIf="(authService.userSignedIn$ | async)">
-                <a (click)="logOut()" href="javascript:void(0)">LOGOUT</a></li>
+                <a (click)="logOut()" href="javascript:void(0)">Salir</a></li>
 
             </ul>
         </div>
