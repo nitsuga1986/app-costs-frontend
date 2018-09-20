@@ -10,7 +10,6 @@ export class ForFilter implements PipeTransform {
   constructor(private authTokenService:Angular2TokenService){}
 
   transform(items: any[], filter: Object): any {
-      console.log(filter);
       if (this.authTokenService.userSignedIn()) {
           return items.filter(item => item.forLogged);
       }

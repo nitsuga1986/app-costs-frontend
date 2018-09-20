@@ -20,7 +20,6 @@ export class AuthService {
   }
 
   logOutUser():Observable<Response>{
-
     return this.authService.signOut().map(
         res => {
           this.userSignedIn$.next(false);
@@ -39,7 +38,6 @@ export class AuthService {
   }
 
   logInUser(signInData: {email:string, password:string}):Observable<Response>{
-
     return this.authService.signIn(signInData).map(
         res => {
           this.userSignedIn$.next(true);

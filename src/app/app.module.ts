@@ -18,6 +18,7 @@ import { AppComponent } from './app.component';
 import { LandingComponent } from './views/landing/landing.component';
 
 import { HomeComponent } from './views/home/home.component';
+import { PanelComponent } from './views/panel/panel.component';
 import { ProductosComponent } from './views/productos/productos.component';
 import { LotesComponent } from './views/lotes/lotes.component';
 import { LoteAddComponent } from './views/lote-add/lote-add.component';
@@ -42,6 +43,7 @@ import { AuthPageComponent } from './views/auth-page/auth-page.component';
   declarations: [
     AppComponent,
     LandingComponent,
+    PanelComponent,
     HomeComponent,
     ProductosComponent,
     LotesComponent,

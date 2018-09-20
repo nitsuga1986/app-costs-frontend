@@ -1,4 +1,4 @@
-import {Component, Input, OnInit, AfterViewInit, ChangeDetectionStrategy} from '@angular/core';
+import {Component, Input, OnInit, AfterViewChecked, ChangeDetectionStrategy} from '@angular/core';
 import * as Chartist from 'chartist';
 
 export interface LegendItem {
@@ -17,7 +17,7 @@ export enum ChartType {
   templateUrl: './lbd-chart.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class LbdChartComponent implements OnInit, AfterViewInit {
+export class LbdChartComponent implements OnInit, AfterViewChecked {
   static currentId = 1;
 
   @Input()
@@ -62,7 +62,7 @@ export class LbdChartComponent implements OnInit, AfterViewInit {
     this.chartId = `lbd-chart-${LbdChartComponent.currentId++}`;
   }
 
-  public ngAfterViewInit(): void {
+  public ngAfterViewChecked(): void {
 
     switch (this.chartType) {
       case ChartType.Pie:
