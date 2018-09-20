@@ -1,0 +1,59 @@
+<div class="main-content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-6">
+              <div class="card">
+                  <div class="header">
+                      <h4 class="title">Resumen</h4>
+                  </div>
+                  <div class="content">
+                    <div class="alert alert-success">
+                      <span>Balance total: <strong>{{balance | currency }}</strong></span>
+                    </div>
+                    <div class="alert alert-info" *ngFor="let item of inventario | keyvalue">
+                      <span>Stock disponible de <strong>{{item.key}}</strong>: <strong>{{item.value}}</strong></span>
+                    </div>
+                  </div>
+              </div>
+              <div class="card">
+                  <div class="header">
+                      <h4 class="title">Detalle de lotes</h4>
+                  </div>
+                  <div class="content table-responsive table-full-width">
+                        <table class="table table-hover table-striped">
+                              <thead>
+                                  <tr>
+                                      <th>ID</th>
+                                      <th>Costo</th>
+                                      <th>Ingreso</th>
+                                  </tr>
+                              </thead>
+                              <tbody>
+                                  <tr *ngFor="let lote of lotes">
+                                      <td>{{lote.id}}</td>
+                                      <td>{{lote.costo | currency }}</td>
+                                      <td>{{lote.ingreso | currency }}</td>
+                                  </tr>
+                              </tbody>
+                        </table>
+
+                  </div>
+              </div>
+            </div>
+            <div class="col-md-6">
+                <lbd-chart
+                  [title]="'Ingresos / Costos'"
+                  [subtitle]="'para cada uno de los lotes'"
+                  [chartType]="activityChartType"
+                  [chartData]="activityChartData"
+                  [chartOptions]="activityChartOptions"
+                  [chartResponsive]="activityChartResponsive"
+                  [legendItems]="activityChartLegendItems"
+                  [withHr]="true"
+                  [footerIconClass]="''"
+                  [footerText]="''">
+                </lbd-chart>
+            </div>
+        </div>
+    </div>
+</div>
