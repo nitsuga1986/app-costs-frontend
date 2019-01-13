@@ -11,7 +11,7 @@ import {environment} from "../environments/environment";
 })
 export class AppComponent implements OnInit {
 
-     constructor(private authToken: Angular2TokenService, public location: Location, public authService:AuthService) {
+    constructor(private authToken: Angular2TokenService, public location: Location, public authService:AuthService) {
        this.authToken.init(environment.token_auth_config);
      }
 

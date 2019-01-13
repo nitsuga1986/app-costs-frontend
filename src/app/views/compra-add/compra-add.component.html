@@ -62,8 +62,9 @@
                                 </div>
                                 <div class="col-md-6">
                                     <div class="form-group">
-                                      <label>Total</label>
-                                      <select class="form-control" required >
+                                      <label>Lotes</label>
+                                      <select class="form-control" required (ngModelChange)="unitChange($event)"
+                                        [(ngModel)]="compra.lote_id" name="lote_id">
                                           <option [ngValue]="i.id" *ngFor="let i of lotes">{{i.nombre}}</option>
                                       </select>
                                     </div>
