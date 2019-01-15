@@ -40,7 +40,6 @@ export class PanelComponent implements OnInit {
           this.activityChartData.labels.push(item.id);
           this.activityChartData.series[0].push(item.costo);
           this.balance =- item.costo;
-          console.log("balance: ",balance)
         });
 
         // GET ingresos
@@ -50,7 +49,6 @@ export class PanelComponent implements OnInit {
             this.activityChartData.series[1].push(item.costo);
             this.lotes[index]['ingreso'] = item.costo
             this.balance =+ item.costo;
-            console.log("balance: ",balance)
           });
 
           // Generate Bar Chart
