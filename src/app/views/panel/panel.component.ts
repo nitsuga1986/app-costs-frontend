@@ -24,40 +24,37 @@ export class PanelComponent implements OnInit {
   constructor(public apiService: ApiService) { }
 
   ngOnInit() {
-      console.log('ngOnInit')
       this.activityChartData = {labels: [],series: [[],[]]};
       this.balance = 0;
 
       // GET inventario
       this.apiService.get("reportes/inventario").subscribe((data: any)=>{
         this.inventario = data;
-        console.log(this.inventario);
       });
 
       // GET costos
       this.apiService.get("reportes/costos").subscribe((data: any)=>{
         this.costos = data;
         this.lotes = data;
-        console.log(this.costos);
         this.costos.forEach((item, index) => {
           this.activityChartData.labels.push(item.id);
           this.activityChartData.series[0].push(item.costo);
           this.balance =- item.costo;
+          console.log("balance: ",balance)
         });
 
         // GET ingresos
         this.apiService.get("reportes/ingresos").subscribe((data: any)=>{
           this.ingresos = data;
-          console.log(this.ingresos);
           this.ingresos.forEach((item, index) => {
             this.activityChartData.series[1].push(item.costo);
             this.lotes[index]['ingreso'] = item.costo
             this.balance =+ item.costo;
+            console.log("balance: ",balance)
           });
 
           // Generate Bar Chart
           this.generateBarChart(this.activityChartData);
-          console.log(this.lotes);
         });
       });
 
