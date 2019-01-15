@@ -38,17 +38,17 @@ export class PanelComponent implements OnInit {
         this.lotes = data;
         this.costos.forEach((item, index) => {
           this.activityChartData.labels.push(item.id);
-          this.activityChartData.series[0].push(item.costo);
-          this.balance =- item.costo;
+          this.activityChartData.series[1].push(item.costo);
+          this.balance = Number(this.balance) - Number(item.costo);
         });
 
         // GET ingresos
         this.apiService.get("reportes/ingresos").subscribe((data: any)=>{
           this.ingresos = data;
           this.ingresos.forEach((item, index) => {
-            this.activityChartData.series[1].push(item.costo);
+            this.activityChartData.series[0].push(item.costo);
             this.lotes[index]['ingreso'] = item.costo
-            this.balance =+ item.costo;
+            this.balance = Number(this.balance) + Number(item.costo);
           });
 
           // Generate Bar Chart
@@ -63,6 +63,7 @@ export class PanelComponent implements OnInit {
       // Bar Chart
       this.activityChartType = ChartType.Bar;
       this.activityChartData = chartData;
+      console.log(this.activityChartData);
       this.activityChartOptions = {
         seriesBarDistance: 10,
         axisX: {
@@ -81,8 +82,8 @@ export class PanelComponent implements OnInit {
         }]
       ];
       this.activityChartLegendItems = [
-        { title: 'Costos', imageClass: 'fa fa-circle text-danger' },
-        { title: 'Ingresos', imageClass: 'fa fa-circle text-info' }
+      { title: 'Ingresos', imageClass: 'fa fa-circle text-info' },
+        { title: 'Costos', imageClass: 'fa fa-circle text-danger' }
       ];
     };
 
