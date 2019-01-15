@@ -86,8 +86,8 @@ export class PanelComponent implements OnInit {
         }]
       ];
       this.activityChartLegendItems = [
-        { title: 'Ingresos', imageClass: 'fa fa-circle text-info' },
-        { title: 'Costos', imageClass: 'fa fa-circle text-danger' }
+        { title: 'Costos', imageClass: 'fa fa-circle text-info' },
+        { title: 'Ingresos', imageClass: 'fa fa-circle text-danger' }
       ];
     };
 
